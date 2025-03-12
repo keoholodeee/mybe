@@ -1,79 +1,59 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>Editorial by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="is-preload">
+<head>
+    <title>Editorial by HTML5 UP</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+</head>
+<body class="is-preload">
+    <div id="wrapper">
+        <div id="main">
+            <div class="inner">
+                <header id="header">
+                    <a href="index.html" class="logo"><strong>Editorial</strong> by HTML5 UP</a>
+                </header>
+                
+                <section id="banner">
+                    <div class="content">
+                        <header>
+                            <h1>Welcome to Our Blog</h1>
+                            <p>Latest posts powered by Netlify CMS</p>
+                        </header>
+                    </div>
+                </section>
 
-		<div id="wrapper">
-
-			<div id="main">
-				<div class="inner">
-
-					<header id="header">
-						<a href="index.html" class="logo"><strong>Editorial</strong> by HTML5 UP</a>
-					</header>
-
-					<section id="banner">
-						<div class="content">
-							<header>
-								<h1>Bài viết mới nhất</h1>
-							</header>
-						</div>
-					</section>
-
-					<section>
-						<header class="major">
-							<h2>Bài viết gần đây</h2>
-						</header>
-						<div class="posts" id="blog-posts"></div>
-					</section>
-
-				</div>
-			</div>
-
-			<div id="sidebar">
-				<div class="inner">
-					<nav id="menu">
-						<header class="major">
-							<h2>Menu</h2>
-						</header>
-						<ul>
-							<li><a href="index.html">Homepage</a></li>
-							<li><a href="generic.html">Generic</a></li>
-						</ul>
-					</nav>
-				</div>
-			</div>
-
-		</div>
-
-		<script src="assets/js/jquery.min.js"></script>
-		<script src="assets/js/main.js"></script>
-
-		<script>
-			fetch('/content/blog/index.json')
-				.then(response => response.json())
-				.then(posts => {
-					let html = '';
-					posts.forEach(post => {
-						html += `
-						<article>
-							<a href="${post.url}" class="image"><img src="${post.image}" alt="" /></a>
-							<h3>${post.title}</h3>
-							<p>${post.summary}</p>
-							<ul class="actions">
-								<li><a href="${post.url}" class="button">Đọc tiếp</a></li>
-							</ul>
-						</article>`;
-					});
-					document.getElementById('blog-posts').innerHTML = html;
-				})
-				.catch(error => console.error('Lỗi khi tải bài viết:', error));
-		</script>
-
-	</body>
+                <!-- Hiển thị danh sách bài viết -->
+                <section>
+                    <header class="major">
+                        <h2>Latest Articles</h2>
+                    </header>
+                    <div id="posts" class="posts">
+                        <!-- Các bài viết sẽ được hiển thị ở đây -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        // Load bài viết từ Netlify CMS
+        fetch('/admin/index.json')
+            .then(response => response.json())
+            .then(posts => {
+                let postsContainer = document.getElementById('posts');
+                posts.forEach(post => {
+                    let article = document.createElement('article');
+                    article.innerHTML = `
+                        <h3>${post.title}</h3>
+                        <p>${post.summary}</p>
+                        <a href="${post.url}" class="button">Read More</a>
+                    `;
+                    postsContainer.appendChild(article);
+                });
+            });
+    </script>
+</body>
 </html>
